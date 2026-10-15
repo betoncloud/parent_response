@@ -9,7 +9,7 @@
 /* Layout: one narrow reading column; sections separated by rules, only the child entries are cards. */
 :root {
   --bg: #ffffff;
-  --surface: #fbfcfa;
+  --surface: #ffffff;
   --fg: #1c2620;
   --muted: #5b6860;
   --line: #d3dad0;
@@ -20,20 +20,7 @@
   --ok-bg: #e3eee7;
   --font-display: "Noto Serif Ethiopic", "Noto Serif", Georgia, serif;
   --font-body: "Noto Sans Ethiopic", "Noto Sans", system-ui, sans-serif;
-}
-
-:root[data-theme="dark"] {
-  --bg: #111915;
-  --surface: #1a241f;
-  --fg: #e7ece8;
-  --muted: #9aa8a0;
-  --line: #2d3b34;
-  --accent: #5cb995;
-  --accent-fg: #0e1a14;
-  --gold: #dcab4a;
-  --err: #f0867e;
-  --ok-bg: #1d2d25;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -87,7 +74,7 @@ input[type="text"], input[type="tel"], input[type="email"], select, textarea {
 textarea { min-height: 110px; resize: vertical; }
 input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
 :is(input, select, textarea, button):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.invalid :is(input[type="text"], input[type="tel"], input[type="email"],select, textarea) { border-color: var(--err); }
+.invalid :is(input[type="text"], input[type="tel"], input[type="email"], select, textarea) { border-color: var(--err); }
 .err { display: block; color: var(--err); font-size: 14px; margin-top: 6px; }
 .err:empty { display: none; }
 
@@ -117,7 +104,6 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
 .child { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 4px 18px 10px; margin: 16px 0; }
 .child h3 { font-family: var(--font-display); font-size: 17px; margin: 14px 0 0; color: var(--accent); }
 .child .field { margin: 14px 0; }
-.child input[type="text"], .child select { background: var(--bg); }
 .linkbtn {
   font: inherit; color: var(--accent); background: none; border: 1px dashed var(--accent);
   border-radius: 6px; min-height: 44px; padding: 8px 16px; cursor: pointer; font-weight: 500;
@@ -139,8 +125,6 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
 .panel h2 { margin-top: 0; }
 .panel p { margin: 0 0 12px; }
 .copybox { width: 100%; font-size: 14px; min-height: 180px; }
-.admin { margin-top: 40px; padding: 16px 18px; border: 1px dashed var(--line); border-radius: 8px; font-size: 14px; color: var(--muted); }
-.admin p { margin: 0 0 10px; }
 </style>
 
 </head>
@@ -208,25 +192,28 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         <label class="q" for="telegram"><span class="qn">6.</span>የቴሌግራም የሚጠቀሙበት ስልክ ቁጥር</label>
         <input type="tel" id="telegram" inputmode="tel" placeholder="09…">
       </div>
-	<div class="field">
+
+      <div class="field" data-f="email">
         <label class="q" for="email"><span class="qn">7.</span>የኢሜል አድራሻ (ካልዎት)</label>
-        <input type="email" id="email" inputmode="email" placeholder="name@example.com">
+        <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="name@example.com">
+        <span class="err"></span>
       </div>
+
       <div class="field" data-f="address">
         <label class="q" for="address"><span class="qn">8.</span>የመኖሪያ አድራሻ <span class="req">*</span><span class="hint">ወረዳ / ልዩ ቦታ</span></label>
         <input type="text" id="address" autocomplete="street-address">
         <span class="err"></span>
       </div>
 
-        <fieldset class="field" data-f="education">
+      <fieldset class="field" data-f="education">
         <legend class="q"><span class="qn">9.</span>የትምህርት ደረጃ <span class="req">*</span></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="education" value="ያልተማረ/ች"><span>ያልተማረ/ች</span></label>
           <label class="opt"><input type="radio" name="education" value="12 ክፍል በፊት ያቋረጠ/ች"><span>12 ክፍል በፊት ያቋረጠ/ች</span></label>
           <label class="opt"><input type="radio" name="education" value="ዲፕሎማ"><span>ዲፕሎማ</span></label>
           <label class="opt"><input type="radio" name="education" value="የመጀመሪያ ዲግሪ"><span>የመጀመሪያ ዲግሪ</span></label>
-		  <label class="opt"><input type="radio" name="education" value="ማስተርስ ዲግሪ"><span>ማስተርስ ዲግሪ</span></label>
-		  <label class="opt"><input type="radio" name="education" value="ፒ.ኤች ዲግሪ"><span>ፒ.ኤች ዲግሪ</span></label>
+          <label class="opt"><input type="radio" name="education" value="ማስተርስ ዲግሪ"><span>ማስተርስ ዲግሪ</span></label>
+          <label class="opt"><input type="radio" name="education" value="ፒ.ኤች ዲግሪ"><span>ፒ.ኤች ዲግሪ</span></label>
           <label class="opt"><input type="radio" name="education" value="ሌላ"><span>ሌላ</span></label>
         </div>
         <div class="sub" id="education-other-wrap" hidden>
@@ -235,9 +222,8 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         </div>
         <span class="err"></span>
       </fieldset>
-	      
+
       <div class="field">
-      
         <label class="q" for="job"><span class="qn">10.</span>የሥራ/የሙያ ዘርፍ</label>
         <input type="text" id="job">
       </div>
@@ -391,6 +377,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
   /* ---------- conditional fields ---------- */
   function syncConditionals() {
     $("relation-other-wrap").hidden = radioVal("relation") !== "ሌላ";
+    $("education-other-wrap").hidden = radioVal("education") !== "ሌላ";
     $("special-wrap").hidden = radioVal("special") !== "አዎ አለ";
     $("confessor-wrap").hidden = radioVal("confessor") !== "አዎ አለን";
     $("support-other-wrap").hidden = !$("support-other-cb").checked;
@@ -447,7 +434,9 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       phone: $("phone").value.trim(),
       phone2: $("phone2").value.trim(),
       telegram: $("telegram").value.trim(),
+      email: $("email").value.trim(),
       address: $("address").value.trim(),
+      education: radioVal("education") === "ሌላ" ? ("ሌላ: " + $("education-other").value.trim()) : radioVal("education"),
       job: $("job").value.trim(),
       special: radioVal("special"),
       specialDetail: radioVal("special") === "አዎ አለ" ? $("specialDetail").value.trim() : "",
@@ -488,7 +477,9 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     if (!d.v.gender) bad("gender", "ጾታ ይምረጡ።");
     if (!d.v.relation) bad("relation", "ዝምድናዎን ይምረጡ።");
     if (!/\d{9,}/.test(d.v.phone.replace(/[\s\-+()]/g, ""))) bad("phone", "ትክክለኛ የስልክ ቁጥር ያስገቡ (ቢያንስ 9 አሃዝ)።");
+    if (d.v.email && !/^\S+@\S+\.\S+$/.test(d.v.email)) bad("email", "ትክክለኛ የኢሜል አድራሻ ያስገቡ።");
     if (!d.v.address) bad("address", "የመኖሪያ አድራሻዎን ያስገቡ።");
+    if (!d.v.education) bad("education", "የትምህርት ደረጃዎን ይምረጡ።");
     if (!d.count) bad("count", "የልጆችን ብዛት ይምረጡ።");
     d.children.forEach(function (c, i) {
       var p = "c" + (i + 1) + "-";
@@ -502,11 +493,12 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     return first;
   }
 
-  /* ---------- summary / csv ---------- */
+  /* ---------- summary ---------- */
   var LABELS = [
-    ["name", "የወላጅ/አዳጊ ሙሉ ስም"], ["gender", "ጾታ"], ["relation", "ዝምድና"],
+    ["name", "የወላጅ/አሳዳጊ ሙሉ ስም"], ["gender", "ጾታ"], ["relation", "ዝምድና"],
     ["phone", "ዋና ስልክ"], ["phone2", "ተጨማሪ ስልክ"], ["telegram", "ቴሌግራም ስልክ"],
-    ["address", "የመኖሪያ አድራሻ"], ["job", "ሥራ/ሙያ"],
+    ["email", "የኢሜል አድራሻ"],
+    ["address", "የመኖሪያ አድራሻ"], ["education", "የትምህርት ደረጃ"], ["job", "ሥራ/ሙያ"],
     ["special", "ልዩ ትኩረት/የጤና ሁኔታ"], ["specialDetail", "የጤና ሁኔታ ዝርዝር"],
     ["confessor", "የነፍስ አባት አለ?"], ["confessorName", "የነፍስ አባት ስም"],
     ["activities", "ተጨማሪ እንቅስቃሴዎች"], ["support", "ለማገልገል የሚፈልጉበት ዘርፍ"],
@@ -528,7 +520,6 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     d.children.forEach(function (c, i) { out.push("ልጅ " + (i + 1) + ": " + kidLine(c)); });
     return out.join("\n");
   }
-  function csvCell(s) { return '"' + String(s == null ? "" : s).replace(/"/g, '""') + '"'; }
 
   /* ---------- submit ---------- */
   var submitting = false;
@@ -578,7 +569,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function showFallback(d, keepForm) {
+  function showFallback(d) {
     var r = $("result");
     r.innerHTML = '<div class="panel"><h2>ምላሽዎ ዝግጁ ነው</h2>' +
       '<p>ከታች ያለውን ጽሑፍ ገልብጠው ለሰንበት ትምህርት ቤቱ (ለምሳሌ በቴሌግራም) ይላኩ። ቅጹ በዚህ ገጽ ላይ አይቀመጥም።</p>' +
