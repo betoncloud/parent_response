@@ -8,7 +8,7 @@
 <style>
 /* Layout: one narrow reading column; sections separated by rules, only the child entries are cards. */
 :root {
-  --bg: #ffffff;
+  --bg: #f2f4f0;
   --surface: #fbfcfa;
   --fg: #1c2620;
   --muted: #5b6860;
@@ -21,7 +21,21 @@
   --font-display: "Noto Serif Ethiopic", "Noto Serif", Georgia, serif;
   --font-body: "Noto Sans Ethiopic", "Noto Sans", system-ui, sans-serif;
 }
-
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111915;
+    --surface: #1a241f;
+    --fg: #e7ece8;
+    --muted: #9aa8a0;
+    --line: #2d3b34;
+    --accent: #5cb995;
+    --accent-fg: #0e1a14;
+    --gold: #dcab4a;
+    --err: #f0867e;
+    --ok-bg: #1d2d25;
+    color-scheme: dark;
+  }
+}
 :root[data-theme="dark"] {
   --bg: #111915;
   --surface: #1a241f;
@@ -74,7 +88,7 @@ fieldset.field { border: 0; padding: 0; margin: 20px 0; }
 .hint { display: block; font-weight: 400; font-size: 14px; color: var(--muted); }
 .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 20px; }
 
-input[type="text"], input[type="tel"], select, textarea {
+input[type="text"], input[type="tel"],, input[type="email"], select, textarea {
   width: 100%;
   font: inherit;
   color: var(--fg);
@@ -87,7 +101,7 @@ input[type="text"], input[type="tel"], select, textarea {
 textarea { min-height: 110px; resize: vertical; }
 input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
 :is(input, select, textarea, button):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.invalid :is(input[type="text"], input[type="tel"], select, textarea) { border-color: var(--err); }
+.invalid :is(input[type="text"], input[type="tel"], input[type="email"],select, textarea) { border-color: var(--err); }
 .err { display: block; color: var(--err); font-size: 14px; margin-top: 6px; }
 .err:empty { display: none; }
 
