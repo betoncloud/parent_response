@@ -164,19 +164,19 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     <p class="invocation">በስመ አብ ወወልድ ወመንፈስ ቅዱስ አሐዱ አምላክ አሜን!</p>
     <p class="church">ሲኤምሲ ደብረ ጽብአ ቅዱስ ሚካኤል ቤተ ክርስቲያን</p>
     <p class="school">ብርሃነ ሕይወት ሰንበት ትምህርት ቤት</p>
-    <h1>የልጆች ወላጆች ፕሮፋይል መሙያ ቅጽ</h1>
-    <p class="intro">ውድ ወላጆች/አዳጊዎች፤ ይህ ቅጽ በብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሚማሩ ልጆቻችንን መረጃ በስርዓት ለመያዝ፣ ከእርስዎ ጋር ያለንን ግንኙነት ለማጠናከር እና የልጆችን መንፈሳዊና ማኅበራዊ ዕድገት በጋራ ለመከታተል የተዘጋጀ ነው። እባክዎ ጥያቄዎቹን በጥንቃቄ በመሙላት ይተባበሩን።</p>
-    <p class="reqnote"><b>*</b> ምልክት ያለባቸው ጥያቄዎች መመለስ ግዴታ ነው።</p>
+    <h1>የልጆች ወላጆች መሠረታዊ መሙያ ቅጽ</h1>
+    <p class="intro">ውድ ወላጆች/አሳዳጊዎች፤ ይህ ቅጽ በብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሚማሩ ልጆቻችንን መረጃ በስርዓት ለመያዝ፣ ከእርስዎ ጋር ያለንን የቤተክርስትያን አገልግሎት ግንኙነት ለማጠናከር እና የልጆችን መንፈሳዊና ማኅበራዊ ዕድገት በጋራ ለመከታተል የተዘጋጀ ነው። እባክዎ ጥያቄዎቹን በጥንቃቄ በመሙላት ይተባበሩን።</p>
+    <p class="reqnote"><b>*</b> ምልክት ያለባቸውን ጥያቄዎቹን ሁሉንም መመለስዎን ያረጋግጡ።</p>
   </header>
 
   <form id="form" novalidate>
 
     <section>
       <p class="sec-label">ክፍል 2</p>
-      <h2>የወላጅ/አዳጊ መሠረታዊ መረጃ</h2>
+      <h2>የወላጅ/አሳዳጊ መሠረታዊ መረጃ</h2>
 
       <div class="field" data-f="name">
-        <label class="q" for="name"><span class="qn">1.</span>የወላጅ/አዳጊ ሙሉ ስም (የአያት ስም ጨምሮ) <span class="req">*</span></label>
+        <label class="q" for="name"><span class="qn">1.</span>የወላጅ/አሳዳጊ ሙሉ ስም (የአያት ስም ጨምሮ) <span class="req">*</span></label>
         <input type="text" id="name" autocomplete="name">
         <span class="err"></span>
       </div>
@@ -222,14 +222,33 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         <label class="q" for="telegram"><span class="qn">6.</span>የቴሌግራም የሚጠቀሙበት ስልክ ቁጥር</label>
         <input type="tel" id="telegram" inputmode="tel" placeholder="09…">
       </div>
-
+	<div class="field">
+        <label class="q" for="email"><span class="qn">6.</span>የኢሜል አድራሻ (ካልዎት)</label>
+        <input type="tel" id="email" inputmode="tel" placeholder="09…">
+      </div>
       <div class="field" data-f="address">
-        <label class="q" for="address"><span class="qn">7.</span>የመኖሪያ አድራሻ <span class="req">*</span><span class="hint">ወረዳ / ልዩ ቦታ / የቤት ቁጥር</span></label>
+        <label class="q" for="address"><span class="qn">7.</span>የመኖሪያ አድራሻ <span class="req">*</span><span class="hint">ወረዳ / ልዩ ቦታ</span></label>
         <input type="text" id="address" autocomplete="street-address">
         <span class="err"></span>
       </div>
 
-      <div class="field">
+        <fieldset class="field" data-f="education">
+        <legend class="q"><span class="qn">3.</span>የትምህርት ደረጃ <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="education" value="ያልተማረ/ች"><span>ያልተማረ/ች</span></label>
+          <label class="opt"><input type="radio" name="education" value="12 ክፍል ብፊት ያቋረጠ/ች"><span>12 ክፍል ብፊት ያቋረጠ/ች</span></label>
+          <label class="opt"><input type="radio" name="education" value="ዲፕሎማ"><span>ዲፕሎማ</span></label>
+          <label class="opt"><input type="radio" name="education" value="የመጀመሪያ ዲግሪ"><span>የመጀመሪያ ዲግሪ</span></label>
+		  <label class="opt"><input type="radio" name="education" value="ማስተርስ ዲግሪ"><span>ማስተርስ ዲግሪ</span></label>
+		  <label class="opt"><input type="radio" name="education" value="ፒ.ኤች ዲግሪ"><span>ፒ.ኤች ዲግሪ</span></label>
+          <label class="opt"><input type="radio" name="education" value="ሌላ"><span>ሌላ</span></label>
+        </div>
+        <div class="sub" id="education-other-wrap" hidden>
+          <label class="q" for="education-other">ደረጃውን ይጥቀሱ</label>
+          <input type="text" id="education-other">
+        </div>
+        <span class="err"></span>
+      </fieldset>
         <label class="q" for="job"><span class="qn">8.</span>የሥራ/የሙያ ዘርፍ</label>
         <input type="text" id="job">
       </div>
@@ -295,7 +314,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       </div>
 
       <div class="field">
-        <label class="q" for="activities"><span class="qn">14.</span>ልጁ/ቷ ከሰንበት ትምህርት ቤት ውጪ የሚያከናውኗቸው ተጨማሪ እንቅስቃሴዎች አሉ?<span class="hint">ለምሳሌ፡ የስፖርት፣ የቋንቋ ትምህርት</span></label>
+        <label class="q" for="activities"><span class="qn">14.</span>ልጅዎ/ችዎ ከሰንበት ትምህርት ቤት ውጪ የሚያከናውኗቸው ተጨማሪ እንቅስቃሴዎች አለ?<span class="hint">ለምሳሌ፡ የስፖርት፣ የቋንቋ ትምህርት</span></label>
         <textarea id="activities"></textarea>
       </div>
     </section>
@@ -307,13 +326,12 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       <fieldset class="field">
         <legend class="q"><span class="qn">15.</span>የሰንበት ትምህርት ቤቱን አገልግሎት ለማጠናከር በምን ዘርፍ ማገልገል/መደገፍ ይፈልጋሉ?<span class="hint">ከአንድ በላይ መምረጥ ይቻላል</span></legend>
         <div class="opts check stack" id="support">
-          <label class="opt"><input type="checkbox" name="support" value="በሙያዬ (በማስተማር/በሥልጠና)"><span>በሙያዬ (በማስተማር/በሥልጠና)</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="በሙያዬ (በማስተማር/በሥልጠና)"><span>በሙያዬ (በማስተማር/በሥልጠና ወዘተ)</span></label>
           <label class="opt"><input type="checkbox" name="support" value="በሕክምና/ጤና እንክብካቤ አገልግሎት"><span>በሕክምና/ጤና እንክብካቤ አገልግሎት</span></label>
           <label class="opt"><input type="checkbox" name="support" value="በሕግ/ምክር አገልግሎት"><span>በሕግ/ምክር አገልግሎት</span></label>
           <label class="opt"><input type="checkbox" name="support" value="በኢንፎርሜሽን ቴክኖሎጂ (IT) እና ሚዲያ"><span>በኢንፎርሜሽን ቴክኖሎጂ (IT) እና ሚዲያ</span></label>
           <label class="opt"><input type="checkbox" name="support" value="በበጎ አድራጎትና በፋይናንስ ድጋፍ"><span>በበጎ አድራጎትና በፋይናንስ ድጋፍ</span></label>
-          <label class="opt"><input type="checkbox" name="support" value="የልጆች ዝግጅቶችን በመርዳትና በማስተባበር"><span>የልጆች ዝግጅቶችን በመርዳትና በማስተባበር</span></label>
-          <label class="opt"><input type="checkbox" name="support" value="በገንዘብ"><span>በገንዘብ</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="የልጆች የቀለም ትምህርትን ዝግጅት በመርዳትና በማስተባበር"><span>የልጆች የቀለም ትምህርትን ዝግጅት በመርዳትና በማስተባበር</span></label>
           <label class="opt"><input type="checkbox" name="support" value="ሌላ" id="support-other-cb"><span>ሌላ</span></label>
         </div>
         <div class="sub" id="support-other-wrap" hidden>
@@ -323,7 +341,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       </fieldset>
 
       <fieldset class="field">
-        <legend class="q"><span class="qn">16.</span>ወላጆች በወር ወይም በሁለት ወር አንድ ጊዜ በሚዘጋጁ የወላጅ-መምህር ስብሰባዎችና ሥልጠናዎች ላይ ለመሳተፍ አመቺ የሆነልዎት ጊዜ የትኛው ነው?</legend>
+        <legend class="q"><span class="qn">16.</span>ለወላጆች 6 ወር አንድ ጊዜ በሚዘጋጁ ስብሰባዎችና ሥልጠናዎች ላይ ለመሳተፍ አመቺ የሆነልዎት ጊዜ የትኛው ነው?</legend>
         <div class="opts stack">
           <label class="opt"><input type="radio" name="time" value="ቅዳሜ ከሰዓት"><span>ቅዳሜ ከሰዓት</span></label>
           <label class="opt"><input type="radio" name="time" value="እሑድ ከሰዓት"><span>እሑድ ከሰዓት</span></label>
