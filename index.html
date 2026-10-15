@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="am">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>የወላጆች ፕሮፋይል ቅጽ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;500;600&family=Noto+Serif+Ethiopic:wght@600;700&display=swap">
+<style>
+/* Layout: one narrow reading column; sections separated by rules, only the child entries are cards. */
+:root {
+  --bg: #f2f4f0;
+  --surface: #fbfcfa;
+  --fg: #1c2620;
+  --muted: #5b6860;
+  --line: #d3dad0;
+  --accent: #1e5b45;
+  --accent-fg: #ffffff;
+  --gold: #946313;
+  --err: #b3261e;
+  --ok-bg: #e3eee7;
+  --font-display: "Noto Serif Ethiopic", "Noto Serif", Georgia, serif;
+  --font-body: "Noto Sans Ethiopic", "Noto Sans", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111915;
+    --surface: #1a241f;
+    --fg: #e7ece8;
+    --muted: #9aa8a0;
+    --line: #2d3b34;
+    --accent: #5cb995;
+    --accent-fg: #0e1a14;
+    --gold: #dcab4a;
+    --err: #f0867e;
+    --ok-bg: #1d2d25;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111915;
+  --surface: #1a241f;
+  --fg: #e7ece8;
+  --muted: #9aa8a0;
+  --line: #2d3b34;
+  --accent: #5cb995;
+  --accent-fg: #0e1a14;
+  --gold: #dcab4a;
+  --err: #f0867e;
+  --ok-bg: #1d2d25;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  padding-block: 32px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 720px; margin: 0 auto; }
+
+/* Masthead */
+.mast { padding-bottom: 24px; border-bottom: 2px solid var(--accent); }
+.invocation { font-family: var(--font-display); color: var(--gold); font-size: 15px; font-weight: 600; margin: 0 0 20px; text-wrap: balance; }
+.church { margin: 0; font-size: 14px; color: var(--muted); font-weight: 500; }
+.school { margin: 0; font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--accent); }
+h1 { font-family: var(--font-display); font-size: clamp(26px, 6vw, 36px); line-height: 1.35; margin: 12px 0 16px; text-wrap: balance; }
+.intro { margin: 0 0 12px; color: var(--fg); max-width: 65ch; }
+.reqnote { margin: 0; font-size: 14px; color: var(--muted); }
+.reqnote b, .req { color: var(--err); font-weight: 600; }
+
+/* Sections */
+section { padding-block: 32px 8px; border-bottom: 1px solid var(--line); }
+section:last-of-type { border-bottom: 0; }
+.sec-label { font-size: 13px; letter-spacing: 0.06em; color: var(--gold); font-weight: 600; margin: 0; }
+h2 { font-family: var(--font-display); font-size: 21px; line-height: 1.45; margin: 2px 0 6px; text-wrap: balance; }
+.sec-note { margin: 0 0 8px; font-size: 14px; color: var(--muted); }
+
+/* Fields */
+.field { margin: 20px 0; min-width: 0; }
+fieldset.field { border: 0; padding: 0; margin: 20px 0; }
+.q { display: block; font-weight: 500; margin: 0 0 8px; padding: 0; }
+.qn { display: inline-block; min-width: 1.8em; color: var(--gold); font-variant-numeric: tabular-nums; font-weight: 600; }
+.hint { display: block; font-weight: 400; font-size: 14px; color: var(--muted); }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 20px; }
+
+input[type="text"], input[type="tel"], select, textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--fg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  min-height: 46px;
+}
+textarea { min-height: 110px; resize: vertical; }
+input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
+:is(input, select, textarea, button):focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.invalid :is(input[type="text"], input[type="tel"], select, textarea) { border-color: var(--err); }
+.err { display: block; color: var(--err); font-size: 14px; margin-top: 6px; }
+.err:empty { display: none; }
+
+.opts { display: flex; flex-wrap: wrap; gap: 8px 10px; }
+.opts.stack { flex-direction: column; flex-wrap: nowrap; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.opt span {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 46px; padding: 8px 16px;
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface); cursor: pointer; min-width: 0;
+}
+.opt span::before {
+  content: ""; flex: none; width: 18px; height: 18px;
+  border: 2px solid var(--muted); border-radius: 50%;
+}
+.opts.check .opt span::before { border-radius: 4px; }
+.opt input:checked + span { border-color: var(--accent); background: var(--ok-bg); }
+.opt input:checked + span::before { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 3px var(--ok-bg); }
+.opts.check .opt input:checked + span::before { box-shadow: inset 0 0 0 2px var(--ok-bg); }
+.opt input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.invalid .opt span { border-color: var(--err); }
+.sub { margin-top: 10px; }
+
+/* Child entries */
+.child { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 4px 18px 10px; margin: 16px 0; }
+.child h3 { font-family: var(--font-display); font-size: 17px; margin: 14px 0 0; color: var(--accent); }
+.child .field { margin: 14px 0; }
+.child input[type="text"], .child select { background: var(--bg); }
+.linkbtn {
+  font: inherit; color: var(--accent); background: none; border: 1px dashed var(--accent);
+  border-radius: 6px; min-height: 44px; padding: 8px 16px; cursor: pointer; font-weight: 500;
+}
+
+/* Actions */
+.actions { padding-top: 28px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.btn {
+  font: inherit; font-weight: 600; background: var(--accent); color: var(--accent-fg);
+  border: 0; border-radius: 6px; min-height: 50px; padding: 10px 32px; cursor: pointer;
+}
+.btn:disabled { opacity: 0.6; cursor: default; }
+.btn.alt { background: none; color: var(--accent); border: 1px solid var(--accent); }
+.status { margin: 0; font-size: 15px; }
+.status.bad { color: var(--err); }
+
+/* Result panels */
+.panel { background: var(--ok-bg); border: 1px solid var(--accent); border-radius: 8px; padding: 22px 20px; margin-top: 32px; }
+.panel h2 { margin-top: 0; }
+.panel p { margin: 0 0 12px; }
+.copybox { width: 100%; font-size: 14px; min-height: 180px; }
+.admin { margin-top: 40px; padding: 16px 18px; border: 1px dashed var(--line); border-radius: 8px; font-size: 14px; color: var(--muted); }
+.admin p { margin: 0 0 10px; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <p class="invocation">በስመ አብ ወወልድ ወመንፈስ ቅዱስ አሐዱ አምላክ አሜን!</p>
+    <p class="church">ሲኤምሲ ደብረ ጽብአ ቅዱስ ሚካኤል ቤተ ክርስቲያን</p>
+    <p class="school">ብርሃነ ሕይወት ሰንበት ትምህርት ቤት</p>
+    <h1>የልጆች ወላጆች ፕሮፋይል መሙያ ቅጽ</h1>
+    <p class="intro">ውድ ወላጆች/አዳጊዎች፤ ይህ ቅጽ በብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሚማሩ ልጆቻችንን መረጃ በስርዓት ለመያዝ፣ ከእርስዎ ጋር ያለንን ግንኙነት ለማጠናከር እና የልጆችን መንፈሳዊና ማኅበራዊ ዕድገት በጋራ ለመከታተል የተዘጋጀ ነው። እባክዎ ጥያቄዎቹን በጥንቃቄ በመሙላት ይተባበሩን።</p>
+    <p class="reqnote"><b>*</b> ምልክት ያለባቸው ጥያቄዎች መመለስ ግዴታ ነው።</p>
+  </header>
+
+  <form id="form" novalidate>
+
+    <section>
+      <p class="sec-label">ክፍል 2</p>
+      <h2>የወላጅ/አዳጊ መሠረታዊ መረጃ</h2>
+
+      <div class="field" data-f="name">
+        <label class="q" for="name"><span class="qn">1.</span>የወላጅ/አዳጊ ሙሉ ስም (የአያት ስም ጨምሮ) <span class="req">*</span></label>
+        <input type="text" id="name" autocomplete="name">
+        <span class="err"></span>
+      </div>
+
+      <fieldset class="field" data-f="gender">
+        <legend class="q"><span class="qn">2.</span>ጾታ <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="gender" value="ወንድ"><span>ወንድ</span></label>
+          <label class="opt"><input type="radio" name="gender" value="ሴት"><span>ሴት</span></label>
+        </div>
+        <span class="err"></span>
+      </fieldset>
+
+      <fieldset class="field" data-f="relation">
+        <legend class="q"><span class="qn">3.</span>ከልጁ/ልጆቹ ጋር ያላችሁ ዝምድና <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="relation" value="አባት"><span>አባት</span></label>
+          <label class="opt"><input type="radio" name="relation" value="እናት"><span>እናት</span></label>
+          <label class="opt"><input type="radio" name="relation" value="አያት"><span>አያት</span></label>
+          <label class="opt"><input type="radio" name="relation" value="ሞግዚት (አሳዳጊ)"><span>ሞግዚት (አሳዳጊ)</span></label>
+          <label class="opt"><input type="radio" name="relation" value="ሌላ"><span>ሌላ</span></label>
+        </div>
+        <div class="sub" id="relation-other-wrap" hidden>
+          <label class="q" for="relation-other">ዝምድናውን ይጥቀሱ</label>
+          <input type="text" id="relation-other">
+        </div>
+        <span class="err"></span>
+      </fieldset>
+
+      <div class="row">
+        <div class="field" data-f="phone">
+          <label class="q" for="phone"><span class="qn">4.</span>የስልክ ቁጥር (ዋና) <span class="req">*</span></label>
+          <input type="tel" id="phone" inputmode="tel" autocomplete="tel" placeholder="09…">
+          <span class="err"></span>
+        </div>
+        <div class="field">
+          <label class="q" for="phone2"><span class="qn">5.</span>ተጨማሪ/የአደጋ ጊዜ ስልክ ቁጥር</label>
+          <input type="tel" id="phone2" inputmode="tel" placeholder="09…">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q" for="telegram"><span class="qn">6.</span>የቴሌግራም የሚጠቀሙበት ስልክ ቁጥር</label>
+        <input type="tel" id="telegram" inputmode="tel" placeholder="09…">
+      </div>
+
+      <div class="field" data-f="address">
+        <label class="q" for="address"><span class="qn">7.</span>የመኖሪያ አድራሻ <span class="req">*</span><span class="hint">ወረዳ / ልዩ ቦታ / የቤት ቁጥር</span></label>
+        <input type="text" id="address" autocomplete="street-address">
+        <span class="err"></span>
+      </div>
+
+      <div class="field">
+        <label class="q" for="job"><span class="qn">8.</span>የሥራ/የሙያ ዘርፍ</label>
+        <input type="text" id="job">
+      </div>
+    </section>
+
+    <section>
+      <p class="sec-label">ክፍል 3</p>
+      <h2>የልጁ/ልጆቹ መረጃ</h2>
+      <p class="sec-note">በሰንበት ትምህርት ቤቱ ከአንድ በላይ ልጅ ካለዎት የሁሉንም መረጃ እዚህ ይሙሉ።</p>
+
+      <div class="field" data-f="count">
+        <label class="q" for="count"><span class="qn">9.</span>በሰንበት ትምህርት ቤቱ የሚማሩ የልጆች ብዛት <span class="req">*</span></label>
+        <select id="count">
+          <option value="">ይምረጡ</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4 እና ከዚያ በላይ</option>
+        </select>
+        <span class="err"></span>
+      </div>
+
+      <div id="children"></div>
+      <button type="button" class="linkbtn" id="addchild" hidden>+ ሌላ ልጅ ጨምር</button>
+    </section>
+
+    <section>
+      <p class="sec-label">ክፍል 4</p>
+      <h2>የልጆች የጤና እና ልዩ ፍላጎት መረጃ</h2>
+
+      <fieldset class="field" data-f="special">
+        <legend class="q"><span class="qn">10.</span>ልጅዎ የሚያስፈልገው ልዩ ትኩረት ወይም የጤና ሁኔታ አለ? <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="special" value="አዎ አለ"><span>አዎ አለ</span></label>
+          <label class="opt"><input type="radio" name="special" value="የለም"><span>የለም</span></label>
+        </div>
+        <span class="err"></span>
+      </fieldset>
+
+      <div class="field" id="special-wrap" data-f="specialDetail" hidden>
+        <label class="q" for="specialDetail"><span class="qn">11.</span>«አዎ» ካሉ፤ እባክዎን በዝርዝር ይግለጹልን <span class="req">*</span><span class="hint">ለምሳሌ፡ የተለየ አለርጂ፣ ሥር የሰደደ ሕመም፣ የመስማት/የማየት ልዩ ፍላጎት ወዘተ</span></label>
+        <textarea id="specialDetail"></textarea>
+        <span class="err"></span>
+      </div>
+    </section>
+
+    <section>
+      <p class="sec-label">ክፍል 5</p>
+      <h2>የቤተሰብ መንፈሳዊና ማኅበራዊ ሁኔታ</h2>
+
+      <fieldset class="field" data-f="confessor">
+        <legend class="q"><span class="qn">12.</span>የቤተሰቡ የነፍስ አባት (የንስሐ አባት) አሎት? <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="confessor" value="አዎ አለን"><span>አዎ አለን</span></label>
+          <label class="opt"><input type="radio" name="confessor" value="የለንም"><span>የለንም</span></label>
+        </div>
+        <span class="err"></span>
+      </fieldset>
+
+      <div class="field" id="confessor-wrap" hidden>
+        <label class="q" for="confessorName"><span class="qn">13.</span>የነፍስ አባት ካለዎት የስም እና የቤተ ክርስቲያን ስም</label>
+        <input type="text" id="confessorName">
+      </div>
+
+      <div class="field">
+        <label class="q" for="activities"><span class="qn">14.</span>ልጁ/ቷ ከሰንበት ትምህርት ቤት ውጪ የሚያከናውኗቸው ተጨማሪ እንቅስቃሴዎች አሉ?<span class="hint">ለምሳሌ፡ የስፖርት፣ የቋንቋ ትምህርት</span></label>
+        <textarea id="activities"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <p class="sec-label">ክፍል 6</p>
+      <h2>የወላጆች ተሳትፎ እና ድጋፍ</h2>
+
+      <fieldset class="field">
+        <legend class="q"><span class="qn">15.</span>የሰንበት ትምህርት ቤቱን አገልግሎት ለማጠናከር በምን ዘርፍ ማገልገል/መደገፍ ይፈልጋሉ?<span class="hint">ከአንድ በላይ መምረጥ ይቻላል</span></legend>
+        <div class="opts check stack" id="support">
+          <label class="opt"><input type="checkbox" name="support" value="በሙያዬ (በማስተማር/በሥልጠና)"><span>በሙያዬ (በማስተማር/በሥልጠና)</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="በሕክምና/ጤና እንክብካቤ አገልግሎት"><span>በሕክምና/ጤና እንክብካቤ አገልግሎት</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="በሕግ/ምክር አገልግሎት"><span>በሕግ/ምክር አገልግሎት</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="በኢንፎርሜሽን ቴክኖሎጂ (IT) እና ሚዲያ"><span>በኢንፎርሜሽን ቴክኖሎጂ (IT) እና ሚዲያ</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="በበጎ አድራጎትና በፋይናንስ ድጋፍ"><span>በበጎ አድራጎትና በፋይናንስ ድጋፍ</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="የልጆች ዝግጅቶችን በመርዳትና በማስተባበር"><span>የልጆች ዝግጅቶችን በመርዳትና በማስተባበር</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="በገንዘብ"><span>በገንዘብ</span></label>
+          <label class="opt"><input type="checkbox" name="support" value="ሌላ" id="support-other-cb"><span>ሌላ</span></label>
+        </div>
+        <div class="sub" id="support-other-wrap" hidden>
+          <label class="q" for="support-other">ሌላ (ይጠቀስ)</label>
+          <input type="text" id="support-other">
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="q"><span class="qn">16.</span>ወላጆች በወር ወይም በሁለት ወር አንድ ጊዜ በሚዘጋጁ የወላጅ-መምህር ስብሰባዎችና ሥልጠናዎች ላይ ለመሳተፍ አመቺ የሆነልዎት ጊዜ የትኛው ነው?</legend>
+        <div class="opts stack">
+          <label class="opt"><input type="radio" name="time" value="ቅዳሜ ከሰዓት"><span>ቅዳሜ ከሰዓት</span></label>
+          <label class="opt"><input type="radio" name="time" value="እሑድ ከሰዓት"><span>እሑድ ከሰዓት</span></label>
+          <label class="opt"><input type="radio" name="time" value="በኦንላይን (በቴሌግራም/Zoom) ምሽት"><span>በኦንላይን (በቴሌግራም/Zoom) ምሽት</span></label>
+          <label class="opt"><input type="radio" name="time" value="ሌላ"><span>ሌላ አመቺ ጊዜ ካለ</span></label>
+        </div>
+        <div class="sub" id="time-other-wrap" hidden>
+          <label class="q" for="time-other">አመቺ ጊዜዎን ይጥቀሱ</label>
+          <input type="text" id="time-other">
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="q" for="suggest"><span class="qn">17.</span>ለብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሕፃናትና ታዳጊዎች ክፍል አገልግሎት መሻሻል የሚያቀርቡት አስተያየት ወይም ጥቆማ ካለ</label>
+        <textarea id="suggest"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="q" for="more"><span class="qn">18.</span>ተጨማሪ ሐሳብ እና አስተያየት ካሎት ይግለጹልን</label>
+        <textarea id="more"></textarea>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button type="submit" class="btn" id="submit">ቅጹን ላክ</button>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+
+  <div id="result"></div>
+</div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  /* የApps Script Web app ሊንክ እዚህ ይለጥፉ (በ"https://script.google.com/macros/s/…/exec" የሚያልቅ)።
+     ባዶ ከሆነ ቅጹ ምላሹን በጽሑፍ ያቀርባል፤ ወላጁ ገልብጦ ይልካል። */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbylg-VJBEA0PKfanqFJTZSaYvAP0HNgfX27kBUYFSUnNgoGoyIo6nS7_xDTgCdtcLsP/exec";
+
+  var form = $("form"), childrenBox = $("children");
+
+  /* ---------- helpers ---------- */
+  function radioVal(name, scope) {
+    var el = (scope || document).querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : "";
+  }
+  function setErr(wrapper, msg) {
+    if (!wrapper) return;
+    wrapper.classList.toggle("invalid", !!msg);
+    var e = wrapper.querySelector(".err");
+    if (e) e.textContent = msg || "";
+  }
+  function clearErrors() {
+    form.querySelectorAll(".invalid").forEach(function (w) { setErr(w, ""); });
+    form.querySelectorAll(".err").forEach(function (e) { e.textContent = ""; });
+  }
+
+  /* ---------- conditional fields ---------- */
+  function syncConditionals() {
+    $("relation-other-wrap").hidden = radioVal("relation") !== "ሌላ";
+    $("special-wrap").hidden = radioVal("special") !== "አዎ አለ";
+    $("confessor-wrap").hidden = radioVal("confessor") !== "አዎ አለን";
+    $("support-other-wrap").hidden = !$("support-other-cb").checked;
+    $("time-other-wrap").hidden = radioVal("time") !== "ሌላ";
+  }
+  form.addEventListener("change", syncConditionals);
+
+  /* ---------- children ---------- */
+  function childHTML(n) {
+    var p = "c" + n + "-";
+    return '<div class="child" data-n="' + n + '">' +
+      '<h3>ልጅ ' + n + (n > 1 ? ' <span style="font-weight:400;color:var(--muted);font-size:14px">(ካለ)</span>' : '') + '</h3>' +
+      '<div class="field" data-f="' + p + 'name"><label class="q" for="' + p + 'name">የልጁ/ቷ ሙሉ ስም (የክርስትና ስም ጨምሮ) <span class="req">*</span></label>' +
+        '<input type="text" id="' + p + 'name"><span class="err"></span></div>' +
+      '<fieldset class="field" data-f="' + p + 'gender"><legend class="q">ጾታ <span class="req">*</span></legend>' +
+        '<div class="opts"><label class="opt"><input type="radio" name="' + p + 'gender" value="ወንድ"><span>ወንድ</span></label>' +
+        '<label class="opt"><input type="radio" name="' + p + 'gender" value="ሴት"><span>ሴት</span></label></div><span class="err"></span></fieldset>' +
+      '<div class="row">' +
+        '<div class="field" data-f="' + p + 'age"><label class="q" for="' + p + 'age">ዕድሜ / የልደት ዘመን <span class="req">*</span></label>' +
+          '<input type="text" id="' + p + 'age"><span class="err"></span></div>' +
+        '<div class="field"><label class="q" for="' + p + 'school">የሚማሩበት የትምህርት ክፍል<span class="hint">ከመደበኛ ትምህርት ቤት</span></label>' +
+          '<input type="text" id="' + p + 'school"></div>' +
+      '</div>' +
+      '<div class="field"><label class="q" for="' + p + 'sunday">በሰንበት ትምህርት ቤቱ የሚማሩበት ክፍል</label>' +
+        '<input type="text" id="' + p + 'sunday"></div>' +
+    '</div>';
+  }
+  function renderChildren(n) {
+    var have = childrenBox.querySelectorAll(".child").length;
+    for (var i = have + 1; i <= n; i++) childrenBox.insertAdjacentHTML("beforeend", childHTML(i));
+    for (var j = have; j > n; j--) {
+      var c = childrenBox.querySelector('.child[data-n="' + j + '"]');
+      if (c) c.remove();
+    }
+    $("addchild").hidden = $("count").value !== "4";
+  }
+  $("count").addEventListener("change", function () {
+    var v = parseInt(this.value, 10) || 0;
+    renderChildren(v);
+    setErr($("count").closest(".field"), "");
+  });
+  $("addchild").addEventListener("click", function () {
+    var n = childrenBox.querySelectorAll(".child").length + 1;
+    childrenBox.insertAdjacentHTML("beforeend", childHTML(n));
+    var f = $("c" + n + "-name"); if (f) f.focus();
+  });
+
+  /* ---------- collect + validate ---------- */
+  function collect() {
+    var v = {
+      name: $("name").value.trim(),
+      gender: radioVal("gender"),
+      relation: radioVal("relation") === "ሌላ" ? ("ሌላ: " + $("relation-other").value.trim()) : radioVal("relation"),
+      phone: $("phone").value.trim(),
+      phone2: $("phone2").value.trim(),
+      telegram: $("telegram").value.trim(),
+      address: $("address").value.trim(),
+      job: $("job").value.trim(),
+      special: radioVal("special"),
+      specialDetail: radioVal("special") === "አዎ አለ" ? $("specialDetail").value.trim() : "",
+      confessor: radioVal("confessor"),
+      confessorName: radioVal("confessor") === "አዎ አለን" ? $("confessorName").value.trim() : "",
+      activities: $("activities").value.trim(),
+      support: Array.prototype.map.call(document.querySelectorAll('input[name="support"]:checked'), function (el) {
+        return el.value === "ሌላ" ? ("ሌላ: " + $("support-other").value.trim()) : el.value;
+      }),
+      time: radioVal("time") === "ሌላ" ? ("ሌላ: " + $("time-other").value.trim()) : radioVal("time"),
+      suggest: $("suggest").value.trim(),
+      more: $("more").value.trim()
+    };
+    var kids = [];
+    childrenBox.querySelectorAll(".child").forEach(function (c) {
+      var n = c.getAttribute("data-n"), p = "c" + n + "-";
+      kids.push({
+        name: $(p + "name").value.trim(),
+        gender: radioVal(p + "gender", c),
+        age: $(p + "age").value.trim(),
+        school: $(p + "school").value.trim(),
+        sunday: $(p + "sunday").value.trim()
+      });
+    });
+    return { v: v, children: kids, count: $("count").value };
+  }
+
+  function validate(d) {
+    clearErrors();
+    var first = null;
+    function bad(fieldKey, msg) {
+      var w = form.querySelector('[data-f="' + fieldKey + '"]');
+      setErr(w, msg);
+      if (!first && w) first = w;
+    }
+    var req = "ይህን ጥያቄ መመለስ ግዴታ ነው።";
+    if (!d.v.name) bad("name", "እባክዎ ሙሉ ስምዎን ያስገቡ።");
+    if (!d.v.gender) bad("gender", "ጾታ ይምረጡ።");
+    if (!d.v.relation) bad("relation", "ዝምድናዎን ይምረጡ።");
+    if (!/\d{9,}/.test(d.v.phone.replace(/[\s\-+()]/g, ""))) bad("phone", "ትክክለኛ የስልክ ቁጥር ያስገቡ (ቢያንስ 9 አሃዝ)።");
+    if (!d.v.address) bad("address", "የመኖሪያ አድራሻዎን ያስገቡ።");
+    if (!d.count) bad("count", "የልጆችን ብዛት ይምረጡ።");
+    d.children.forEach(function (c, i) {
+      var p = "c" + (i + 1) + "-";
+      if (!c.name) bad(p + "name", "የልጁ/ቷን ስም ያስገቡ።");
+      if (!c.gender) bad(p + "gender", "ጾታ ይምረጡ።");
+      if (!c.age) bad(p + "age", "ዕድሜ ወይም የልደት ዘመን ያስገቡ።");
+    });
+    if (!d.v.special) bad("special", req);
+    if (d.v.special === "አዎ አለ" && !d.v.specialDetail) bad("specialDetail", "እባክዎን ሁኔታውን በዝርዝር ይግለጹ።");
+    if (!d.v.confessor) bad("confessor", req);
+    return first;
+  }
+
+  /* ---------- summary / csv ---------- */
+  var LABELS = [
+    ["name", "የወላጅ/አዳጊ ሙሉ ስም"], ["gender", "ጾታ"], ["relation", "ዝምድና"],
+    ["phone", "ዋና ስልክ"], ["phone2", "ተጨማሪ ስልክ"], ["telegram", "ቴሌግራም ስልክ"],
+    ["address", "የመኖሪያ አድራሻ"], ["job", "ሥራ/ሙያ"],
+    ["special", "ልዩ ትኩረት/የጤና ሁኔታ"], ["specialDetail", "የጤና ሁኔታ ዝርዝር"],
+    ["confessor", "የነፍስ አባት አለ?"], ["confessorName", "የነፍስ አባት ስም"],
+    ["activities", "ተጨማሪ እንቅስቃሴዎች"], ["support", "ለማገልገል የሚፈልጉበት ዘርፍ"],
+    ["time", "አመቺ ጊዜ"], ["suggest", "አስተያየት ለክፍሉ"], ["more", "ተጨማሪ ሐሳብ"]
+  ];
+  function kidLine(c) {
+    return [c.name, c.gender, "ዕድሜ: " + c.age, "ት/ክፍል: " + c.school, "ሰ/ት/ቤት ክፍል: " + c.sunday].join("; ");
+  }
+  function fieldValue(v, key) {
+    var x = v[key];
+    return Array.isArray(x) ? x.join("፣ ") : (x || "");
+  }
+  function summaryText(d) {
+    var out = ["የወላጆች ፕሮፋይል — ብርሃነ ሕይወት ሰንበት ትምህርት ቤት", ""];
+    LABELS.forEach(function (l) {
+      var val = fieldValue(d.v, l[0]);
+      if (val) out.push(l[1] + ": " + val);
+    });
+    d.children.forEach(function (c, i) { out.push("ልጅ " + (i + 1) + ": " + kidLine(c)); });
+    return out.join("\n");
+  }
+  function csvCell(s) { return '"' + String(s == null ? "" : s).replace(/"/g, '""') + '"'; }
+
+  /* ---------- submit ---------- */
+  var submitting = false;
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (submitting) return;
+    var d = collect();
+    var firstBad = validate(d);
+    var st = $("status");
+    if (firstBad) {
+      st.className = "status bad";
+      st.textContent = "እባክዎ ቀይ ምልክት የተደረገባቸውን ጥያቄዎች ይሙሉ።";
+      firstBad.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    st.className = "status"; st.textContent = "";
+    if (!ENDPOINT) { showFallback(d); return; }
+    submitting = true;
+    $("submit").disabled = true;
+    st.textContent = "በመላክ ላይ…";
+    fetch(ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ v: d.v, children: d.children, count: d.count })
+    }).then(function () {
+      showThanks();
+    }).catch(function () {
+      submitting = false;
+      $("submit").disabled = false;
+      st.className = "status bad";
+      st.textContent = "መላክ አልተሳካም። ኢንተርኔትዎን ያረጋግጡና እንደገና ይሞክሩ፤ ካልተሳካ ከታች ያለውን ጽሑፍ ገልብጠው ለሰንበት ትምህርት ቤቱ ይላኩ።";
+      showFallback(d);
+    });
+  });
+
+  function showThanks() {
+    form.hidden = true;
+    var r = $("result");
+    r.innerHTML = '<div class="panel"><h2>እግዚአብሔር ይስጥልን!</h2><p>መረጃዎ ተልኳል። ቅጹን ስለሞሉ እናመሰግናለን።</p><button type="button" class="btn alt" id="again">ሌላ ቅጽ ሙላ</button></div>';
+    $("again").addEventListener("click", function () {
+      form.reset(); renderChildren(0); syncConditionals(); clearErrors();
+      submitting = false; $("submit").disabled = false; $("status").textContent = "";
+      form.hidden = false; r.innerHTML = "";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function showFallback(d, keepForm) {
+    var r = $("result");
+    r.innerHTML = '<div class="panel"><h2>ምላሽዎ ዝግጁ ነው</h2>' +
+      '<p>ከታች ያለውን ጽሑፍ ገልብጠው ለሰንበት ትምህርት ቤቱ (ለምሳሌ በቴሌግራም) ይላኩ። ቅጹ በዚህ ገጽ ላይ አይቀመጥም።</p>' +
+      '<textarea class="copybox" id="copybox" readonly></textarea>' +
+      '<p style="margin-top:12px"><button type="button" class="btn" id="copybtn">ገልብጥ</button></p><p class="status" id="copystat"></p></div>';
+    $("copybox").value = summaryText(d);
+    $("copybtn").addEventListener("click", function () {
+      var box = $("copybox"), stat = $("copystat");
+      function sel() { box.focus(); box.select(); stat.textContent = "ጽሑፉ ተመርጧል፤ እባክዎ ይቅዱት።"; }
+      try {
+        navigator.clipboard.writeText(box.value).then(function () { stat.textContent = "ተቀድቷል።"; }, sel);
+      } catch (e) { sel(); }
+    });
+    r.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  syncConditionals();
+})();
+</script>
+
+</body>
+</html>
