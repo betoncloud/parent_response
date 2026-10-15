@@ -8,7 +8,7 @@
 <style>
 /* Layout: one narrow reading column; sections separated by rules, only the child entries are cards. */
 :root {
-  --bg: #f2f4f0;
+  --bg: #ffffff;
   --surface: #fbfcfa;
   --fg: #1c2620;
   --muted: #5b6860;
@@ -21,21 +21,7 @@
   --font-display: "Noto Serif Ethiopic", "Noto Serif", Georgia, serif;
   --font-body: "Noto Sans Ethiopic", "Noto Sans", system-ui, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111915;
-    --surface: #1a241f;
-    --fg: #e7ece8;
-    --muted: #9aa8a0;
-    --line: #2d3b34;
-    --accent: #5cb995;
-    --accent-fg: #0e1a14;
-    --gold: #dcab4a;
-    --err: #f0867e;
-    --ok-bg: #1d2d25;
-    color-scheme: dark;
-  }
-}
+
 :root[data-theme="dark"] {
   --bg: #111915;
   --surface: #1a241f;
