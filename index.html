@@ -303,7 +303,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
           <label class="opt"><input type="radio" name="churchService" value="በጊቢ ጉባዔ"><span>በጊቢ ጉባዔ</span></label>
           <label class="opt"><input type="radio" name="churchService" value="በአብነት ትምህርት ቤት"><span>በአብነት ትምህርት ቤት</span></label>
           <label class="opt"><input type="radio" name="churchService" value="ሌላ"><span>ሌላ</span></label>
-           <label class="opt"><input type="radio" name="churchService" value="አገልግዬ አላውቅም"><span>አገልግዬ አላውቅም</span></label>
+          <label class="opt"><input type="radio" name="churchService" value="አገልግዬ አላውቅም"><span>አገልግዬ አላውቅም</span></label>
         </div>
         <div class="sub" id="churchService-other-wrap" hidden>
           <label class="q" for="churchService-other">አገልግሎቱን ይጥቀሱ</label>
@@ -585,14 +585,13 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     ["activities", "ተጨማሪ እንቅስቃሴዎች"], ["support", "ለማገልገል የሚፈልጉበት ዘርፍ"],
     ["time", "አመቺ ጊዜ"], ["suggest", "አስተያየት ለክፍሉ"], ["more", "ተጨማሪ ሐሳብ"]
   ];
-  var PROGRAM_AM = { መደበኛ: "መደበኛ", የአብነት ትምህርት: "የአብነት ትምህርት", ሁለቱንም: "ሁለቱንም" };
   function kidLine(c) {
     return [
       c.name, c.gender,
       "ዕድሜ: " + c.age,
       "ት/ክፍል: " + c.school,
       "ሰ/ት/ቤት ክፍል: " + c.sunday,
-      "መርሃ ግብር: " + (PROGRAM_AM[c.programType] || c.programType)
+      "መርሃ ግብር: " + c.programType
     ].join("; ");
   }
   function fieldValue(v, key) {
