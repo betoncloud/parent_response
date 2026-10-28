@@ -136,7 +136,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     <p class="school">ብርሃነ ሕይወት ሰንበት ትምህርት ቤት</p>
     <h1>የልጆች ወላጆች መሠረታዊ መረጃ መሙያ ቅጽ</h1>
     <p class="intro">ውድ ወላጆች/አሳዳጊዎች፤ ይህ ቅጽ በብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሚማሩ ልጆቻችንን መረጃ በስርዓት ለመያዝ፣ ከእርስዎ ጋር ያለንን የቤተክርስትያን አገልግሎት ግንኙነት ለማጠናከር እና የልጆችን መንፈሳዊና ማኅበራዊ ዕድገት በጋራ ለመከታተል የተዘጋጀ ነው። እባክዎ ጥያቄዎቹን በጥንቃቄ በመሙላት ይተባበሩን።</p>
-    <p class="reqnote"><b>*</b> ምልክት ያለባቸውን ጥያቄዎቹን ሁሉንም መመለስዎን ያረጋግጡ።</p>
+    <p class="reqnote"><b>*</b> ምልክት ያለባቸውን ጥያቄዎቹን በጥንቃቴ መሙላትዎን ያረጋግጡ።</p>
   </header>
 
   <form id="form" novalidate>
@@ -151,8 +151,28 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         <span class="err"></span>
       </div>
 
+      <div class="field">
+        <label class="q" for="christian_name"><span class="qn">2.</span>የክርስትና ስም</label>
+        <input type="text" id="christian_name">
+      </div>
+      
+     <fieldset class="field" data-f="title">
+        <legend class="q"><span class="qn">3.</span>የክህነት ወይም የቀለም ትምህርት ማዕረግ ስም <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="title" value="ቀሲስ"><span>ቀሲስ</span></label>
+          <label class="opt"><input type="radio" name="title" value="ዲያቆን"><span>ዲያቆን</span></label>
+          <label class="opt"><input type="radio" name="title" value="ዶክተር"><span>ዶክተር</span></label>
+          <label class="opt"><input type="radio" name="title" value="ኢንጂነር"><span>ኢንጂነር</span></label>
+          <label class="opt"><input type="radio" name="title" value="ከተዘረዘሩት ሌላ"><span>ከተዘረዘሩት ሌላ</span></label>
+          <label class="opt"><input type="radio" name="title" value="የለኝም"><span>የለኝም</span></label>
+        </div>
+        <span class="err"></span>
+      </fieldset>
+    
+
+      
       <fieldset class="field" data-f="gender">
-        <legend class="q"><span class="qn">2.</span>ጾታ <span class="req">*</span></legend>
+        <legend class="q"><span class="qn">4.</span>ጾታ <span class="req">*</span></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="gender" value="ወንድ"><span>ወንድ</span></label>
           <label class="opt"><input type="radio" name="gender" value="ሴት"><span>ሴት</span></label>
@@ -160,8 +180,9 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         <span class="err"></span>
       </fieldset>
 
+      
       <fieldset class="field" data-f="relation">
-        <legend class="q"><span class="qn">3.</span>ከልጁ/ልጆቹ ጋር ያላችሁ ዝምድና <span class="req">*</span></legend>
+        <legend class="q"><span class="qn">5.</span>ከልጁ/ልጆቹ ጋር ያላችሁ ዝምድና <span class="req">*</span></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="relation" value="አባት"><span>አባት</span></label>
           <label class="opt"><input type="radio" name="relation" value="እናት"><span>እናት</span></label>
@@ -178,35 +199,35 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
 
       <div class="row">
         <div class="field" data-f="phone">
-          <label class="q" for="phone"><span class="qn">4.</span>የስልክ ቁጥር (ዋና) <span class="req">*</span></label>
+          <label class="q" for="phone"><span class="qn">5.</span>የስልክ ቁጥር (ዋና) <span class="req">*</span></label>
           <input type="tel" id="phone" inputmode="tel" autocomplete="tel" placeholder="09…">
           <span class="err"></span>
         </div>
         <div class="field">
-          <label class="q" for="phone2"><span class="qn">5.</span>ተጨማሪ/የአደጋ ጊዜ ስልክ ቁጥር</label>
+          <label class="q" for="phone2"><span class="qn">6.</span>ተጨማሪ/የአደጋ ጊዜ ስልክ ቁጥር</label>
           <input type="tel" id="phone2" inputmode="tel" placeholder="09…">
         </div>
       </div>
 
       <div class="field">
-        <label class="q" for="telegram"><span class="qn">6.</span>የቴሌግራም የሚጠቀሙበት ስልክ ቁጥር</label>
+        <label class="q" for="telegram"><span class="qn">7.</span>የቴሌግራም የሚጠቀሙበት ስልክ ቁጥር</label>
         <input type="tel" id="telegram" inputmode="tel" placeholder="09…">
       </div>
 
       <div class="field" data-f="email">
-        <label class="q" for="email"><span class="qn">7.</span>የኢሜል አድራሻ (ካልዎት)</label>
+        <label class="q" for="email"><span class="qn">8.</span>የኢሜል አድራሻ (ካልዎት)</label>
         <input type="email" id="email" inputmode="email" autocomplete="email" placeholder="name@example.com">
         <span class="err"></span>
       </div>
 
       <div class="field" data-f="address">
-        <label class="q" for="address"><span class="qn">8.</span>የመኖሪያ አድራሻ <span class="req">*</span><span class="hint">ወረዳ/የሰፈሩ ልዩ ሰም</span></label>
+        <label class="q" for="address"><span class="qn">9.</span>የመኖሪያ አድራሻ <span class="req">*</span><span class="hint">ወረዳ ወይም የሰፈሩ ልዩ ሰም</span></label>
         <input type="text" id="address" autocomplete="street-address">
         <span class="err"></span>
       </div>
 
       <fieldset class="field" data-f="education">
-        <legend class="q"><span class="qn">9.</span>የትምህርት ደረጃ <span class="req">*</span></legend>
+        <legend class="q"><span class="qn">10.</span>የትምህርት ደረጃ <span class="req">*</span></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="education" value="ትምህርት ያልጀመረ/ች"><span>ትምህርት ያልጀመረ/ች</span></label>
           <label class="opt"><input type="radio" name="education" value="12 ክፍል በፊት ያቋረጠ/ች"><span>12 ክፍል በፊት ያቋረጠ/ች</span></label>
@@ -224,7 +245,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       </fieldset>
 
       <div class="field">
-        <label class="q" for="job"><span class="qn">10.</span>የሥራ/የሙያ ዘርፍ</label>
+        <label class="q" for="job"><span class="qn">11.</span>የሥራ/የሙያ ዘርፍ</label>
         <input type="text" id="job">
       </div>
     </section>
@@ -235,7 +256,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       <p class="sec-note">በሰንበት ትምህርት ቤቱ ከአንድ በላይ ልጅ ካለዎት የሁሉንም መረጃ እዚህ ይሙሉ።</p>
 
       <div class="field" data-f="count">
-        <label class="q" for="count"><span class="qn">11.</span>በሰንበት ትምህርት ቤቱ የሚማሩ የልጆች ብዛት <span class="req">*</span></label>
+        <label class="q" for="count"><span class="qn">12.</span>በሰንበት ትምህርት ቤቱ የሚማሩ የልጆች ብዛት <span class="req">*</span></label>
         <select id="count">
           <option value="">ይምረጡ</option>
           <option value="1">1</option>
@@ -255,7 +276,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       <h2>የልጆች የጤና እና ልዩ ፍላጎት መረጃ</h2>
 
       <fieldset class="field" data-f="special">
-        <legend class="q"><span class="qn">12.</span>ልጅዎ የሚያስፈልገው ልዩ ትኩረት ወይም የጤና ሁኔታ አለ? <span class="req">*</span></legend>
+        <legend class="q"><span class="qn">13.</span>ልጅዎ የሚያስፈልገው ልዩ ትኩረት ወይም የጤና ሁኔታ አለ? <span class="req">*</span></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="special" value="አዎ አለ"><span>አዎ አለ</span></label>
           <label class="opt"><input type="radio" name="special" value="የለም"><span>የለም</span></label>
@@ -264,7 +285,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       </fieldset>
 
       <div class="field" id="special-wrap" data-f="specialDetail" hidden>
-        <label class="q" for="specialDetail"><span class="qn">13.</span>«አዎ» ካሉ፤ እባክዎን በዝርዝር ይግለጹልን <span class="req">*</span><span class="hint">ለምሳሌ፡ የተለየ አለርጂ፣ ሥር የሰደደ ሕመም፣ የመስማት/የማየት ልዩ ፍላጎት ወዘተ</span></label>
+        <label class="q" for="specialDetail"><span class="qn">14.</span>«አዎ» ካሉ፤ እባክዎን በዝርዝር ይግለጹልን <span class="req">*</span><span class="hint">ለምሳሌ፡ የተለየ አለርጂ፣ ሥር የሰደደ ሕመም፣ የመስማት/የማየት ልዩ ፍላጎት ወዘተ</span></label>
         <textarea id="specialDetail"></textarea>
         <span class="err"></span>
       </div>
@@ -273,23 +294,43 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     <section>
       <p class="sec-label">ክፍል 5</p>
       <h2>የቤተሰብ መንፈሳዊና ማኅበራዊ ሁኔታ</h2>
-
+      
+         <fieldset class="field" data-f="churchService">
+        <legend class="q"><span class="qn">15.</span> የቤተ ክርስትያን አገልግሎት ላይ ተሳትፈው ያውቃሉ? (ለ6 ወርና ከዚያ በላይ) <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="churchService" value="በሰንበት ትምህርት ቤት"><span>ቀሲስ</span></label>
+          <label class="opt"><input type="radio" name="churchService" value="በጊቢ ጉባዔ"><span>ዲያቆን</span></label>
+          <label class="opt"><input type="radio" name="churchService" value="በአብነት ትምህርት ቤት "><span>ዶክተር</span></label>
+          <label class="opt"><input type="radio" name="churchService" value="ሌላ "><span>ዶክተር</span></label>
+        </div>
+        <span class="err"></span>
+      </fieldset>
+      
       <fieldset class="field" data-f="confessor">
-        <legend class="q"><span class="qn">14.</span>የቤተሰቡ የነፍስ አባት (የንስሐ አባት) አሎት? <span class="req">*</span></legend>
+        <legend class="q"><span class="qn">16.</span>የቤተሰቡ የነፍስ አባት (የንስሐ አባት) አሎት? <span class="req">*</span></legend>
         <div class="opts">
           <label class="opt"><input type="radio" name="confessor" value="አዎ አለን"><span>አዎ አለን</span></label>
           <label class="opt"><input type="radio" name="confessor" value="የለንም"><span>የለንም</span></label>
         </div>
         <span class="err"></span>
       </fieldset>
-
+                
       <div class="field" id="confessor-wrap" hidden>
-        <label class="q" for="confessorName"><span class="qn">15.</span>የነፍስ አባት ካለዎት የስም እና የቤተ ክርስቲያን ስም</label>
+        <label class="q" for="confessorName"><span class="qn">17.</span>የነፍስ አባት ካለዎት የነፍስ አባትዎ ሙሉ ስም እና እሳቸው የሚያገለግሉበት ቤተ ክርስቲያን<span class="hint">ለምሳሌ፡ ቀሲስ እንዳለ ሲኤምሲ ቅዱስ ሚካሄል</span></label>
         <input type="text" id="confessorName">
       </div>
-
+      
+   <fieldset class="field" data-f="church_council_book">
+        <legend class="q"><span class="qn">18.</span>የሰበካ ጉባዔ ደብተር አለዎት? <span class="req">*</span></legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="church_council_book" value="አለን"><span>አለን</span></label>
+          <label class="opt"><input type="radio" name="church_council_book" value="የለንም"><span>የለንም</span></label>
+        </div>
+        <span class="err"></span>
+      </fieldset>
+      
       <div class="field">
-        <label class="q" for="activities"><span class="qn">16.</span>ልጅዎ/ችዎ ከሰንበት ትምህርት ቤት ውጪ የሚያከናውኗቸው ተጨማሪ እንቅስቃሴዎች አለ?<span class="hint">ለምሳሌ፡ የስፖርት፣ የቋንቋ ትምህርት</span></label>
+        <label class="q" for="activities"><span class="qn">19.</span>ልጅዎ/ችዎ ከሰንበት ትምህርት ቤት ውጪ የሚያከናውኗቸው ተጨማሪ እንቅስቃሴዎች አለ?<span class="hint">ለምሳሌ፡ የስፖርት፣ የቋንቋ ትምህርት</span></label>
         <textarea id="activities"></textarea>
       </div>
     </section>
@@ -299,7 +340,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       <h2>የወላጆች ተሳትፎ እና ድጋፍ</h2>
 
       <fieldset class="field">
-        <legend class="q"><span class="qn">17.</span>የሰንበት ትምህርት ቤቱን አገልግሎት ለማጠናከር በምን ዘርፍ ማገልገል/መደገፍ ይፈልጋሉ?<span class="hint">ከአንድ በላይ መምረጥ ይቻላል</span></legend>
+        <legend class="q"><span class="qn">20.</span>የሰንበት ትምህርት ቤቱን አገልግሎት ለማጠናከር በምን ዘርፍ ማገልገል/መደገፍ ይፈልጋሉ?<span class="hint">ከአንድ በላይ መምረጥ ይቻላል</span></legend>
         <div class="opts check stack" id="support">
           <label class="opt"><input type="checkbox" name="support" value="በሙያዬ (በማስተማር/በሥልጠና)"><span>በሙያዬ (በማስተማር/በሥልጠና ወዘተ)</span></label>
           <label class="opt"><input type="checkbox" name="support" value="በሕክምና/ጤና እንክብካቤ አገልግሎት"><span>በሕክምና/ጤና እንክብካቤ አገልግሎት</span></label>
@@ -316,7 +357,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       </fieldset>
 
       <fieldset class="field">
-        <legend class="q"><span class="qn">18.</span>ለወላጆች 6 ወር አንድ ጊዜ በሚዘጋጁ ስብሰባዎችና ሥልጠናዎች ላይ ለመሳተፍ አመቺ የሆነልዎት ጊዜ የትኛው ነው?</legend>
+        <legend class="q"><span class="qn">21.</span>ለወላጆች 6 ወር አንድ ጊዜ በሚዘጋጁ ስብሰባዎችና ሥልጠናዎች ላይ ለመሳተፍ አመቺ የሆነልዎት ጊዜ የትኛው ነው?</legend>
         <div class="opts stack">
           <label class="opt"><input type="radio" name="time" value="ቅዳሜ ከሰዓት"><span>ቅዳሜ ከሰዓት</span></label>
           <label class="opt"><input type="radio" name="time" value="እሑድ ከሰዓት"><span>እሑድ ከሰዓት</span></label>
@@ -330,12 +371,12 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       </fieldset>
 
       <div class="field">
-        <label class="q" for="suggest"><span class="qn">19.</span>ለብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሕፃናትና ታዳጊዎች ክፍል አገልግሎት መሻሻል የሚያቀርቡት አስተያየት ወይም ጥቆማ ካለ</label>
+        <label class="q" for="suggest"><span class="qn">22.</span>ለብርሃነ ሕይወት ሰንበት ትምህርት ቤት የሕፃናትና ታዳጊዎች ክፍል አገልግሎት መሻሻል የሚያቀርቡት አስተያየት ወይም ጥቆማ ካለ</label>
         <textarea id="suggest"></textarea>
       </div>
 
       <div class="field">
-        <label class="q" for="more"><span class="qn">20.</span>ተጨማሪ ሐሳብ እና አስተያየት ካሎት ይግለጹልን</label>
+        <label class="q" for="more"><span class="qn">23.</span>ተጨማሪ ሐሳብ እና አስተያየት ካሎት ይግለጹልን</label>
         <textarea id="more"></textarea>
       </div>
     </section>
@@ -396,14 +437,21 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         '<div class="opts"><label class="opt"><input type="radio" name="' + p + 'gender" value="ወንድ"><span>ወንድ</span></label>' +
         '<label class="opt"><input type="radio" name="' + p + 'gender" value="ሴት"><span>ሴት</span></label></div><span class="err"></span></fieldset>' +
       '<div class="row">' +
-        '<div class="field" data-f="' + p + 'age"><label class="q" for="' + p + 'age">ዕድሜ / የልደት ዘመን <span class="req">*</span></label>' +
+        '<div class="field" data-f="' + p + 'age"><label class="q" for="' + p + 'age">ዕድሜ <span class="req">*</span></label>' +
           '<input type="text" id="' + p + 'age"><span class="err"></span></div>' +
         '<div class="field"><label class="q" for="' + p + 'school">የሚማሩበት የትምህርት ክፍል<span class="hint">ከመደበኛ ትምህርት ቤት</span></label>' +
           '<input type="text" id="' + p + 'school"></div>' +
       '</div>' +
       '<div class="field"><label class="q" for="' + p + 'sunday">በሰንበት ትምህርት ቤቱ የሚማሩበት ክፍል</label>' +
         '<input type="text" id="' + p + 'sunday"></div>' +
-    '</div>';
+    '</div>' +
+      
+      '<div class="field" data-f="' + p + 'programType"><label class="q" for="' + p + 'programType">የሰንበት ትምህርት ቤቱ የሚማሩበት መርሃ ግብር <span class="req">*</span></label>' +
+      '<select id="' + p + 'programType">' +
+        '<option value="Normal">መደበኛ (እሁድ ጠዋት/ቅዳሜ ከሰዓት)</option>' +
+        '<option value="Abinet">የአብነት ትምህርት</option>' +
+        '<option value="Both">ሁለቱንም</option>' +
+      '</select><span class="err"></span></div>' +'</div>';
   }
   function renderChildren(n) {
     var have = childrenBox.querySelectorAll(".child").length;
@@ -458,7 +506,8 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         gender: radioVal(p + "gender", c),
         age: $(p + "age").value.trim(),
         school: $(p + "school").value.trim(),
-        sunday: $(p + "sunday").value.trim()
+        sunday: $(p + "sunday").value.trim(),
+        programType: $(p + "programType").value.trim()
       });
     });
     return { v: v, children: kids, count: $("count").value };
@@ -505,7 +554,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     ["time", "አመቺ ጊዜ"], ["suggest", "አስተያየት ለክፍሉ"], ["more", "ተጨማሪ ሐሳብ"]
   ];
   function kidLine(c) {
-    return [c.name, c.gender, "ዕድሜ: " + c.age, "ት/ክፍል: " + c.school, "ሰ/ት/ቤት ክፍል: " + c.sunday].join("; ");
+    return [c.name, c.gender, "ዕድሜ: " + c.age, "ት/ክፍል: " + c.school, "ሰ/ት/ቤት ክፍል: " + c.sunday + "የሚማሩበት መርሃ ግብር: " + c.programType ].join("; ");
   }
   function fieldValue(v, key) {
     var x = v[key];
