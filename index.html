@@ -454,9 +454,9 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         '<input type="text" id="' + p + 'sunday"></div>' +
       '<div class="field" data-f="' + p + 'programType"><label class="q" for="' + p + 'programType">በሰንበት ትምህርት ቤቱ የሚማሩበት መርሃ ግብር <span class="req">*</span></label>' +
         '<select id="' + p + 'programType">' +
-          '<option value="Normal">መደበኛ (እሁድ ጠዋት/ቅዳሜ ከሰዓት)</option>' +
-          '<option value="Abinet">የአብነት ትምህርት</option>' +
-          '<option value="Both">ሁለቱንም</option>' +
+          '<option value="መደበኛ (እሁድ ጠዋት/ቅዳሜ ከሰዓት)">መደበኛ (እሁድ ጠዋት/ቅዳሜ ከሰዓት)</option>' +
+          '<option value="የአብነት ትምህርት">የአብነት ትምህርት</option>' +
+          '<option value="ሁለቱንም">ሁለቱንም</option>' +
         '</select><span class="err"></span></div>' +
     '</div>';
   }
@@ -585,7 +585,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     ["activities", "ተጨማሪ እንቅስቃሴዎች"], ["support", "ለማገልገል የሚፈልጉበት ዘርፍ"],
     ["time", "አመቺ ጊዜ"], ["suggest", "አስተያየት ለክፍሉ"], ["more", "ተጨማሪ ሐሳብ"]
   ];
-  var PROGRAM_AM = { Normal: "መደበኛ", Abinet: "የአብነት ትምህርት", Both: "ሁለቱንም" };
+  var PROGRAM_AM = { መደበኛ: "መደበኛ", የአብነት ትምህርት: "የአብነት ትምህርት", ሁለቱንም: "ሁለቱንም" };
   function kidLine(c) {
     return [
       c.name, c.gender,
