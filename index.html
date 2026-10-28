@@ -166,6 +166,10 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
           <label class="opt"><input type="radio" name="title" value="ከተዘረዘሩት ሌላ"><span>ከተዘረዘሩት ሌላ</span></label>
           <label class="opt"><input type="radio" name="title" value="የለኝም"><span>የለኝም</span></label>
         </div>
+        <div class="sub" id="title-other-wrap" hidden>
+          <label class="q" for="title-other">ማዕረጉን ይጥቀሱ</label>
+          <input type="text" id="title-other">
+        </div>
         <span class="err"></span>
       </fieldset>
 
@@ -299,6 +303,11 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
           <label class="opt"><input type="radio" name="churchService" value="በጊቢ ጉባዔ"><span>በጊቢ ጉባዔ</span></label>
           <label class="opt"><input type="radio" name="churchService" value="በአብነት ትምህርት ቤት"><span>በአብነት ትምህርት ቤት</span></label>
           <label class="opt"><input type="radio" name="churchService" value="ሌላ"><span>ሌላ</span></label>
+           <label class="opt"><input type="radio" name="churchService" value="አገልግዬ አላውቅም"><span>አገልግዬ አላውቅም</span></label>
+        </div>
+        <div class="sub" id="churchService-other-wrap" hidden>
+          <label class="q" for="churchService-other">አገልግሎቱን ይጥቀሱ</label>
+          <input type="text" id="churchService-other">
         </div>
         <span class="err"></span>
       </fieldset>
@@ -392,7 +401,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
   var $ = function (id) { return document.getElementById(id); };
   /* የApps Script Web app ሊንክ እዚህ ይለጥፉ (በ"https://script.google.com/macros/s/…/exec" የሚያልቅ)።
      ባዶ ከሆነ ቅጹ ምላሹን በጽሑፍ ያቀርባል፤ ወላጁ ገልብጦ ይልካል። */
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycby5pjvLNMQowI-zPJi5Y4EPzjtY7D7SKE4vupG8UTmsYFoCvmVe1WPu3eKBNRd5nLoE/exec";
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbwy6te7TjC-LY6bbHFqI6kFnd9vM3noY4vPkZGP7xbQq03OFae7vpzR8GiI9sJATxMz/exec";
 
   var form = $("form"), childrenBox = $("children");
 
@@ -414,6 +423,8 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
 
   /* ---------- conditional fields ---------- */
   function syncConditionals() {
+    $("title-other-wrap").hidden = radioVal("title") !== "ከተዘረዘሩት ሌላ";
+    $("churchService-other-wrap").hidden = radioVal("churchService") !== "ሌላ";
     $("relation-other-wrap").hidden = radioVal("relation") !== "ሌላ";
     $("education-other-wrap").hidden = radioVal("education") !== "ሌላ";
     $("special-wrap").hidden = radioVal("special") !== "አዎ አለ";
@@ -435,7 +446,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
         '<label class="opt"><input type="radio" name="' + p + 'gender" value="ሴት"><span>ሴት</span></label></div><span class="err"></span></fieldset>' +
       '<div class="row">' +
         '<div class="field" data-f="' + p + 'age"><label class="q" for="' + p + 'age">ዕድሜ <span class="req">*</span></label>' +
-          '<input type="text" id="' + p + 'age"><span class="err"></span></div>' +
+          '<input type="text" id="' + p + 'age" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off"><span class="err"></span></div>' +
         '<div class="field"><label class="q" for="' + p + 'school">የሚማሩበት የትምህርት ክፍል<span class="hint">ከመደበኛ ትምህርት ቤት</span></label>' +
           '<input type="text" id="' + p + 'school"></div>' +
       '</div>' +
@@ -469,12 +480,21 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     var f = $("c" + n + "-name"); if (f) f.focus();
   });
 
+  /* Age fields accept digits only (strips anything else as the user types or pastes). */
+  childrenBox.addEventListener("input", function (ev) {
+    var t = ev.target;
+    if (t && t.id && /^c\d+-age$/.test(t.id)) {
+      var clean = t.value.replace(/\D/g, "");
+      if (t.value !== clean) t.value = clean;
+    }
+  });
+
   /* ---------- collect + validate ---------- */
   function collect() {
     var v = {
       name: $("name").value.trim(),
       christian_name: $("christian_name").value.trim(),
-      title: radioVal("title"),
+      title: radioVal("title") === "ከተዘረዘሩት ሌላ" ? ("ሌላ: " + $("title-other").value.trim()) : radioVal("title"),
       gender: radioVal("gender"),
       relation: radioVal("relation") === "ሌላ" ? ("ሌላ: " + $("relation-other").value.trim()) : radioVal("relation"),
       phone: $("phone").value.trim(),
@@ -486,7 +506,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       job: $("job").value.trim(),
       special: radioVal("special"),
       specialDetail: radioVal("special") === "አዎ አለ" ? $("specialDetail").value.trim() : "",
-      churchService: radioVal("churchService"),
+      churchService: radioVal("churchService") === "ሌላ" ? ("ሌላ: " + $("churchService-other").value.trim()) : radioVal("churchService"),
       confessor: radioVal("confessor"),
       confessorName: radioVal("confessor") === "አዎ አለን" ? $("confessorName").value.trim() : "",
       church_council_book: radioVal("church_council_book"),
@@ -524,6 +544,7 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
     var req = "ይህን ጥያቄ መመለስ ግዴታ ነው።";
     if (!d.v.name) bad("name", "እባክዎ ሙሉ ስምዎን ያስገቡ።");
     if (!d.v.title) bad("title", req);
+    else if (d.v.title === "ሌላ: ") bad("title", "እባክዎ ማዕረጉን ይጥቀሱ።");
     if (!d.v.gender) bad("gender", "ጾታ ይምረጡ።");
     if (!d.v.relation) bad("relation", "ዝምድናዎን ይምረጡ።");
     else if (d.v.relation === "ሌላ: ") bad("relation", "እባክዎ ዝምድናውን ይጥቀሱ።");
@@ -537,12 +558,14 @@ input::placeholder, textarea::placeholder { color: var(--muted); opacity: 0.8; }
       var p = "c" + (i + 1) + "-";
       if (!c.name) bad(p + "name", "የልጁ/ቷን ስም ያስገቡ።");
       if (!c.gender) bad(p + "gender", "ጾታ ይምረጡ።");
-      if (!c.age) bad(p + "age", "ዕድሜ ወይም የልደት ዘመን ያስገቡ።");
+      if (!c.age) bad(p + "age", "ዕድሜ ያስገቡ (ቁጥር ብቻ)።");
+      else if (!/^\d{1,2}$/.test(c.age)) bad(p + "age", "ዕድሜ ቁጥር ብቻ መሆን አለበት።");
       if (!c.programType) bad(p + "programType", req);
     });
     if (!d.v.special) bad("special", req);
     if (d.v.special === "አዎ አለ" && !d.v.specialDetail) bad("specialDetail", "እባክዎን ሁኔታውን በዝርዝር ይግለጹ።");
     if (!d.v.churchService) bad("churchService", req);
+    else if (d.v.churchService === "ሌላ: ") bad("churchService", "እባክዎ አገልግሎቱን ይጥቀሱ።");
     if (!d.v.confessor) bad("confessor", req);
     if (!d.v.church_council_book) bad("church_council_book", req);
     return first;
